@@ -1,5 +1,5 @@
 <script>
-    import { allFields, displayedFields } from "../state.js";
+    import { gallery, allFields, displayedFields } from "../state.js";
     import JsonMenu from "./JsonMenu.svelte";
     import TimeFormatMenu from "./TimeFormatMenu.svelte";
 
@@ -8,7 +8,7 @@
         if (group.length === 0) group = [e.target.value]; // do not allow to remove the last field
         displayedFields.set(group);
     }
-    let showJsonMenu = false;
+    let showJsonMenu = $gallery.images.length === 0;
     let showTimeFormatMenu = false;
     function enableJsonMenu() {
         showJsonMenu = true;

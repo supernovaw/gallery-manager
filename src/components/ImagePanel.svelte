@@ -34,8 +34,11 @@
                 navigateImage(-1);
             } else if (e.code === "KeyE") {
                 navigateImage(+1);
-            } else if (e.code === "KeyS") {
+            } else if (e.code === "KeyW") {
                 selectedTags = previousTags;
+                onTagSelect();
+            } else if (e.code === "KeyS") {
+                selectedTags = [];
                 onTagSelect();
             }
         }
