@@ -4,6 +4,8 @@
     import { gallery, timeFormat } from "../state";
     export let selectedName;
 
+    $: sortedTags = [...$gallery.tags].sort();
+
     $: imageIndex = $gallery.images.findIndex((o) => o.name === selectedName);
     $: image = $gallery.images[imageIndex];
 
@@ -38,7 +40,7 @@
                 {moment(image.timestamp).format($timeFormat)}
             </div>
             <div class="tags-selector">
-                {#each $gallery.tags as tag}
+                {#each sortedTags as tag}
                     <label>
                         <input
                             type="checkbox"

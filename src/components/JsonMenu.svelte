@@ -22,6 +22,7 @@
             return;
         }
         $gallery = parsed;
+        onClose();
         errorMsg = "";
     }
 </script>
