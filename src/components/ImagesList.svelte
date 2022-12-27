@@ -1,5 +1,7 @@
 <script>
-    import { gallery } from "../state";
+    import moment from "moment";
+    import { gallery, timeFormat } from "../state";
+    import { displayedFields } from "../state";
 </script>
 
 <div class="ImagesList">
@@ -7,13 +9,21 @@
         <tbody>
             {#each $gallery.images as image}
                 <tr>
-                    <td
-                        class="thumbnail"
-                        style="background-image: url(/gallery/thumbnails/{image.name})"
-                    />
-                    <td>{image.name}</td>
-                    <td>{image.timestamp}</td>
-                    <td>{image.tags.join(", ")}</td>
+                    {#if $displayedFields.includes("thumbnail")}
+                        <td
+                            class="thumbnail"
+                            style="background-image: url(/gallery/thumbnails/{image.name})"
+                        />
+                    {/if}
+                    {#if $displayedFields.includes("name")}
+                        <td>{image.name}</td>
+                    {/if}
+                    {#if $displayedFields.includes("timestamp")}
+                        <td>{moment(image.timestamp).format($timeFormat)}</td>
+                    {/if}
+                    {#if $displayedFields.includes("tags")}
+                        <td>{image.tags.join(", ")}</td>
+                    {/if}
                 </tr>
             {/each}
         </tbody>

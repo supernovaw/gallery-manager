@@ -1,6 +1,7 @@
 <script>
     import { allFields, displayedFields } from "../state.js";
     import JsonMenu from "./JsonMenu.svelte";
+    import TimeFormatMenu from "./TimeFormatMenu.svelte";
 
     let group = [...allFields];
     function onChange(e) {
@@ -8,15 +9,22 @@
         displayedFields.set(group);
     }
     let showJsonMenu = false;
+    let showTimeFormatMenu = false;
+    function enableJsonMenu() {
+        showJsonMenu = true;
+        showTimeFormatMenu = false;
+    }
+    function enableTimeFormatMenu() {
+        showJsonMenu = false;
+        showTimeFormatMenu = true;
+    }
 </script>
 
 <div class="Controls">
     <!-- Upper row -->
     <div style="display: flex; gap: 8px">
         <input type="text" placeholder="Filter" style="flex: 1" />
-        <button on:click={() => (showJsonMenu = true)}>
-            Import/export JSON
-        </button>
+        <button on:click={enableJsonMenu}>Import/export JSON</button>
     </div>
 
     <!-- Lower row -->
@@ -32,9 +40,14 @@
                 />{field}
             </label>
         {/each}
+        <button on:click={enableTimeFormatMenu}>Time format</button>
     </div>
 </div>
 <JsonMenu shown={showJsonMenu} onClose={() => (showJsonMenu = false)} />
+<TimeFormatMenu
+    shown={showTimeFormatMenu}
+    onClose={() => (showTimeFormatMenu = false)}
+/>
 
 <style>
     .Controls {

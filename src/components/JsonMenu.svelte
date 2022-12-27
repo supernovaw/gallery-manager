@@ -26,7 +26,7 @@
     }
 </script>
 
-<Popup {shown} {onClose}>
+<Popup title="Import/export JSON" {shown} {onClose}>
     <button on:click={copy}>Copy JSON to clipboard</button>
     <button on:click={parseAndApply}>Apply pasted JSON</button>
     <textarea bind:this={textarea} />

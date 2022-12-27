@@ -1,12 +1,12 @@
 <script>
     import { fade } from "svelte/transition";
 
-    export let shown;
-    export let onClose;
+    export let title, shown, onClose;
 </script>
 
 {#if shown}
     <div class="Popup" class:shown transition:fade={{ duration: 100 }}>
+        <div class="title">{title}</div>
         <slot />
         <button on:click={onClose}>Close</button>
     </div>
@@ -25,6 +25,15 @@
         margin: 15vh 15vw;
         padding: 32px;
         overflow: auto;
+    }
+
+    .title {
+        opacity: 0.8;
+        position: absolute;
+        top: 8px;
+        left: 0;
+        right: 0;
+        text-align: center;
     }
 
     button {
