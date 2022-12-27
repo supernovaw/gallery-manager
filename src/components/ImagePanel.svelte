@@ -1,8 +1,9 @@
 <script>
     import moment from "moment";
+    import { onMount } from "svelte";
     import { fade } from "svelte/transition";
     import { gallery, timeFormat } from "../state";
-    export let selectedName;
+    export let selectedName, navigateImage;
 
     $: sortedTags = [...$gallery.tags].sort();
 
@@ -10,6 +11,7 @@
     $: image = $gallery.images[imageIndex];
 
     let selectedTags = [];
+    let previousTags;
     let enteredNotes;
     function onTagSelect() {
         $gallery.images[imageIndex].tags = selectedTags;
@@ -19,10 +21,27 @@
     }
 
     const onImageChange = () => {
+        previousTags = selectedTags;
         selectedTags = image?.tags || [];
         enteredNotes = image?.notes;
     };
     $: image, onImageChange();
+
+    onMount(() => {
+        function onKeyDown(e) {
+            if (e.target.nodeName !== "BODY") return;
+            if (e.code === "KeyQ") {
+                navigateImage(-1);
+            } else if (e.code === "KeyE") {
+                navigateImage(+1);
+            } else if (e.code === "KeyS") {
+                selectedTags = previousTags;
+                onTagSelect();
+            }
+        }
+        document.body.addEventListener("keydown", onKeyDown);
+        return () => document.body.removeEventListener("keydown", onKeyDown);
+    });
 </script>
 
 {#if image}
