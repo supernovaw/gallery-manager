@@ -1,11 +1,18 @@
 <script>
 	import Controls from "./Controls.svelte";
 	import ImagesList from "./ImagesList.svelte";
+	import ImagePanel from "./ImagePanel.svelte";
+
+	let selectedName;
+	function onSelect(name) {
+		selectedName = name;
+	}
 </script>
 
 <div class="App">
 	<Controls />
-	<ImagesList />
+	<ImagesList {selectedName} {onSelect} />
+	<ImagePanel {selectedName} />
 </div>
 
 <style>
