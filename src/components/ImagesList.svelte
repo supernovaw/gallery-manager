@@ -3,21 +3,30 @@
     import { gallery, timeFormat } from "../state";
     import { displayedFields } from "../state";
     export let selectedName, onSelect;
+
+    let tbodyEl;
+    $: tbodyEl
+        ?.querySelector(`tr[imagename="${selectedName}"]`)
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
 </script>
 
 <div class="ImagesList">
     <table>
-        <tbody>
+        <tbody bind:this={tbodyEl}>
             {#each $gallery.images as image (image.name)}
                 <tr
                     on:click={() => onSelect(image.name)}
                     class:selected={selectedName === image.name}
+                    imagename={image.name}
                 >
                     {#if $displayedFields.includes("thumbnail")}
-                        <td
-                            class="thumbnail"
-                            style="background-image: url(/gallery/thumbnails/{image.name})"
-                        />
+                        <td class="thumbnail">
+                            <img
+                                src="/gallery/thumbnails/{image.name}"
+                                alt={image.name}
+                                loading="lazy"
+                            />
+                        </td>
                     {/if}
                     {#if $displayedFields.includes("name")}
                         <td>{image.name}</td>
@@ -71,8 +80,13 @@
         padding: 0;
         width: 80px;
         height: 45px;
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-        background-size: contain;
+    }
+
+    td.thumbnail img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: 50% 50%;
     }
 </style>
