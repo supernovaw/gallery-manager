@@ -8,12 +8,18 @@
     $: image = $gallery.images[imageIndex];
 
     let selectedTags = [];
+    let enteredNotes;
     function onTagSelect() {
-        image.tags = selectedTags;
-        $gallery.images[imageIndex] = image;
+        $gallery.images[imageIndex].tags = selectedTags;
+    }
+    function onEnteredNotesChange() {
+        $gallery.images[imageIndex].notes = enteredNotes;
     }
 
-    const onImageChange = () => (selectedTags = image?.tags || []);
+    const onImageChange = () => {
+        selectedTags = image?.tags || [];
+        enteredNotes = image?.notes;
+    };
     $: image, onImageChange();
 </script>
 
@@ -44,6 +50,12 @@
                     </label>
                 {/each}
             </div>
+            <textarea
+                class="notes"
+                placeholder="Notes"
+                bind:value={enteredNotes}
+                on:change={onEnteredNotesChange}
+            />
         </div>
     </div>
 {/if}
@@ -117,5 +129,13 @@
 
     .tags-selector label:hover {
         text-decoration-color: inherit;
+    }
+
+    textarea.notes {
+        margin-top: 12px;
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        resize: none;
     }
 </style>
