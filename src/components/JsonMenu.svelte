@@ -1,6 +1,7 @@
 <script>
     import Popup from "./Popup.svelte";
-    import { gallery, verifyParsedGalleryIntegrity } from "../state";
+    import { gallery } from "../state";
+    import verifyParsedGalleryIntegrity from "../jsonValidation";
     export let shown, onClose;
     let textarea,
         errorMsg = "";
@@ -48,6 +49,7 @@
         height: 10em;
         box-sizing: border-box;
         margin-bottom: 8px;
+        word-break: break-all;
     }
 
     span {

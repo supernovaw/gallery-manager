@@ -6,5 +6,6 @@ export const gallerySample = {
     { name: "PXL_20220816_014526261.jpg", filename: "PXL_20220816_014526261_low.jpg", timestamp: 1660614326261, tags: ["my-room", "body-in-view", "food"], notes: "" },
     { name: "PXL_20221203_181515838.jpg", filename: "PXL_20221203_181515838_mid.jpg", timestamp: 1670091315838, tags: ["outside", "landscape"], notes: "" },
   ],
-  tags: ["document", "outside", "cat", "cat-loaf", "my-room", "body-in-view", "food", "sunset-sunrise", "landscape", "beautiful-sky"]
+  tags: ["document", "outside", "cat", "cat-loaf", "my-room", "body-in-view", "food", "sunset-sunrise", "landscape", "beautiful-sky"],
+  inferredTags: { "outside": ["sunset-sunrise", "landscape", "beautiful-sky"], "cat": ["cat-loaf"], "beautiful-sky": ["sunset-sunrise"] }
 };
