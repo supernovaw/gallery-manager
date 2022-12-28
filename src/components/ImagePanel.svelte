@@ -3,9 +3,11 @@
     import { onMount } from "svelte";
     import { fade } from "svelte/transition";
     import { gallery, timeFormat } from "../state";
+    import inferTags from "../tagsInferrer";
     export let selectedName, navigateImage;
 
     $: sortedTags = [...$gallery.tags].sort();
+    let inferredTags;
 
     $: imageIndex = $gallery.images.findIndex((o) => o.name === selectedName);
     $: image = $gallery.images[imageIndex];
@@ -15,17 +17,22 @@
     let enteredNotes;
     function onTagSelect() {
         $gallery.images[imageIndex].tags = selectedTags;
+        updateInferredTags();
     }
     function onEnteredNotesChange() {
         $gallery.images[imageIndex].notes = enteredNotes;
+    }
+    function updateInferredTags() {
+        inferredTags = inferTags($gallery.inferredTags, selectedTags);
     }
 
     const onImageChange = () => {
         previousTags = selectedTags;
         selectedTags = image?.tags || [];
         enteredNotes = image?.notes;
+        updateInferredTags();
     };
-    $: image, onImageChange();
+    $: selectedName, onImageChange();
 
     onMount(() => {
         function onKeyDown(e) {
@@ -63,7 +70,7 @@
             </div>
             <div class="tags-selector">
                 {#each sortedTags as tag}
-                    <label>
+                    <label class:inferred={inferredTags.includes(tag)}>
                         <input
                             type="checkbox"
                             value={tag}
@@ -149,6 +156,15 @@
     .tags-selector label:has(input:checked) {
         color: var(--accent);
         outline: 2px solid var(--accent);
+    }
+
+    .tags-selector label.inferred {
+        color: #d6c312;
+    }
+
+    .tags-selector label.inferred:has(input:checked) {
+        outline: 2px solid #d6c312;
+        color: #d6c312;
     }
 
     .tags-selector label:hover {

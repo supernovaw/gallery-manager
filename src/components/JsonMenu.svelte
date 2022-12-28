@@ -1,7 +1,7 @@
 <script>
     import Popup from "./Popup.svelte";
     import { gallery } from "../state";
-    import verifyParsedGalleryIntegrity from "../jsonValidation";
+    import { verifyParsedGalleryIntegrity } from "../jsonValidation";
     export let shown, onClose;
     let textarea,
         errorMsg = "";
