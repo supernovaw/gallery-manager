@@ -1,5 +1,6 @@
 <script>
-    import { gallery, allFields, displayedFields } from "../state.js";
+    import { gallery, allFields, displayedFields, filter } from "../state.js";
+    import getNewFilterState from "../userFiltering";
     import JsonMenu from "./JsonMenu.svelte";
     import TimeFormatMenu from "./TimeFormatMenu.svelte";
 
@@ -18,12 +19,21 @@
         showJsonMenu = false;
         showTimeFormatMenu = true;
     }
+
+    function onFilterChange(e) {
+        $filter = getNewFilterState(e.target.value, $gallery);
+    }
 </script>
 
 <div class="Controls">
     <!-- Upper row -->
     <div style="display: flex; gap: 8px">
-        <input type="text" placeholder="Filter" style="flex: 1" />
+        <input
+            type="text"
+            placeholder={'Filter, e.g. return it("cat")'}
+            style="flex: 1"
+            on:input={onFilterChange}
+        />
         <button on:click={enableJsonMenu}>Import/export JSON</button>
     </div>
 

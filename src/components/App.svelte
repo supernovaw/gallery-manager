@@ -2,7 +2,7 @@
 	import Controls from "./Controls.svelte";
 	import ImagesList from "./ImagesList.svelte";
 	import ImagePanel from "./ImagePanel.svelte";
-	import { gallery } from "../state";
+	import { filter } from "../state";
 
 	let selectedName;
 	function onSelect(name) {
@@ -10,8 +10,9 @@
 	}
 	function navigateImage(delta) {
 		// delta: -1 is previous, 1 is next
-		const index = $gallery.images.findIndex((o) => o.name === selectedName);
-		const img = $gallery.images[index + delta];
+		const finder = (img) => img.name === selectedName;
+		const index = $filter.imagesToDisplay.findIndex(finder);
+		const img = $filter.imagesToDisplay[index + delta];
 		if (img === undefined) return;
 		selectedName = img.name;
 	}
