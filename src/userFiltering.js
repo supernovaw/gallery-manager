@@ -1,5 +1,12 @@
 import inferTags from "./tagsInferrer";
 
+// This is to emphasize importance of coherent sorting of the arrays
+// with all images and sorted images (which is used for rendering
+// optimisation), even though this is a very simple function.
+export function sortNames(name1, name2) {
+  return name1 > name2 ? 1 : -1;
+}
+
 const userFunctionArgNames = ["i", "it"]; // image and inferred tags
 function getArgsForUserFunction(img, gallery) {
   const inferredTags = [
@@ -40,5 +47,6 @@ export default function getNewFilterState(filterFnRaw, gallery) {
     return fnResult;
   }
   const filteredImages = gallery.images.filter(finalFilterFn);
+  filteredImages.sort((a, b) => sortNames(a.name, b.name));
   return { imagesToDisplay: filteredImages, errorInUserFn, warningInUserFn, filterFnRaw };
 }

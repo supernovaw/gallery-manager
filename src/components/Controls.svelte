@@ -34,6 +34,9 @@
             style="flex: 1"
             on:input={onFilterChange}
         />
+        <div style="flex: 0 0 160px; text-align: center">
+            {`Showing ${$filter.imagesToDisplay.length}/${$gallery.images.length}`}
+        </div>
         <button on:click={enableJsonMenu}>Import/export JSON</button>
     </div>
 
