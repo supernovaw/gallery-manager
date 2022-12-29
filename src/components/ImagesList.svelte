@@ -128,6 +128,7 @@
         background-color: #ec6d8250;
         border-radius: 16px;
         backdrop-filter: blur(10px);
+        z-index: 1;
     }
 
     .overlay-warning.light {
@@ -138,5 +139,6 @@
         text-align: center;
         padding: 32px;
         font-style: italic;
+        z-index: 1;
     }
 </style>

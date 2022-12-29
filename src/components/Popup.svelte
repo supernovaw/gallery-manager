@@ -25,6 +25,7 @@
         margin: 15vh 15vw;
         padding: 32px;
         overflow: auto;
+        z-index: 1;
     }
 
     .title {
